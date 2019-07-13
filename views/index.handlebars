@@ -10,21 +10,28 @@
     </div>
     {{#each article_data}}
     <div class="container article">
-        <div class="card mb-3" style="max-width: 720px;">
-        <div class="row no-gutters">
-            <div class="col-md-4">
-            <img src="{{this.imageLink}}" class="card-img" alt="...">
-            </div>
-            <div class="col-md-8">
-            <div class="card-body">
-                <h5 class="card-title">{{this.title}}</h5>
-                <p class="card-text">{{this.body}}</p>
-                <p class="card-text">author: {{this.author}}</p>
-                <a href="{{this.articleLink}}" class="btn btn-primary">Go to article</a>
-                <p class="card-text"><small class="text-muted">{{this.date}}</small></p>
-            </div>
-            </div>
-        </div>
+        <div class="card mb-3" style="max-width: 720px;">  
+            <form class="article-form">
+                <div class="row no-gutters">
+                    <div class="col-md-4">
+                        <img class="image-link" src="{{this.imageLink}}" class="card-img" alt="article">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title article-title">{{this.title}}</h5>
+                            <p class="card-text article-body">{{this.body}}</p>
+                            <p class="card-text article-author">{{this.author}}</p>
+                            <div class="container" style="padding: 20px;">
+                                <span>Note</span>
+                                <input input type="text"  style="width: 70%;" required="true" class="article-note"><br>
+                            </div>
+                            <a href="{{this.articleLink}}" class="btn btn-primary article-link">Go to article</a>
+                            <button type="submit" class="btn btn-success" style="margin-left: 10%">Save Article</button>
+                            <p class="card-text"><small class="text-muted article-date">{{this.date}}</small></p>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     {{/each}}

@@ -6,10 +6,20 @@ var router = express.Router();
 var db = require("../models");
 
 router.get("/", function(req, res) {
-
   res.render("index");
-
   });
+
+router.post("/api/article/", function(req, res) {
+  db.Article.create(req.body)
+    .then(function() {
+      res.send(201);
+    })
+    .catch(function(err) {
+      console.log(err);
+      res.send(520);
+    });
+  
+});
 
 
   // A GET route for scraping the echoJS website
@@ -67,8 +77,7 @@ router.get("/scrape", function(req, res) {
         articles.push(result);
         
         });
-        //res.json(articles);
-        console.log(articles);
+
         res.render("index", {article_data: articles});
 
     });
