@@ -3,7 +3,7 @@ var axios = require("axios");
 var cheerio = require("cheerio");
 
 var router = express.Router();
-
+var db = require("../models");
 
 router.get("/", function(req, res) {
 
@@ -14,6 +14,7 @@ router.get("/", function(req, res) {
 
   // A GET route for scraping the echoJS website
 router.get("/scrape", function(req, res) {
+    let articles = [];
     // First, we grab the body of the html with axios
     axios.get("https://itsfoss.com/category/news/").then(function(response) {
     
@@ -26,47 +27,56 @@ router.get("/scrape", function(req, res) {
     
           // Add the text and href of every link, and save them as properties of the result object
           //result = $(this);
-            result.title = $(this)
-                .children("header")
-                .children("h2")
-                .children("a")
-                .text();
-    
-            result.body = $(this)
-                .children("div")
-                .children("p")
-                .text();
+        result.title = $(this)
+            .children("header")
+            .children("h2")
+            .children("a")
+            .text();
 
-            result.author = $(this)
-                .children("header")
-                .children("p")
-                .children("span.entry-author")
-                .children("a")
-                .children("span.entry-author-name")
-                .text();
-
-            result.date = $(this)
-                .children("header")
-                .children("p")
-                .children("time")
-                .text();
-
-            result.imgLink = $(this)
-                .children("div")
-                .children("a")
-                .children("img")
-                .attr("src");
-            
-            result.articleLink = $(this)
+        result.body = $(this)
             .children("div")
             .children("p")
+            .text();
+
+        result.author = $(this)
+            .children("header")
+            .children("p")
+            .children("span.entry-author")
             .children("a")
-            .attr("href");
-            
-            console.log(result);
+            .children("span.entry-author-name")
+            .text();
+
+        result.date = $(this)
+            .children("header")
+            .children("p")
+            .children("time")
+            .text();
+
+        result.imageLink = $(this)
+            .children("div")
+            .children("a")
+            .children("img")
+            .attr("src");
         
+        result.articleLink = $(this)
+        .children("div")
+        .children("p")
+        .children("a")
+        .attr("href");
+            
+        articles.push(result);
+        
+        // db.Article.create(result)
+        // .then(function(dbArticle) {
+        //     console.log(dbArticle);
+        // })
+        // .catch(function(err) {
+        //     console.log(err);
+        // });
+
         });
-        res.send("Scrape Complete");
+        res.json(articles);
+
     });
   });
   

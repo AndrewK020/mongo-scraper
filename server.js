@@ -9,8 +9,6 @@ var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines
 // Initialize Express
 var app = express();
 
-//get models
-var db = require("./models");
 
 // Use morgan logger for logging requests
 app.use(logger("dev"));
