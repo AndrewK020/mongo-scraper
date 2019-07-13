@@ -9,6 +9,7 @@ router.get("/", function(req, res) {
   res.render("index");
   });
 
+  // save an article
 router.post("/api/article/", function(req, res) {
   db.Article.create(req.body)
     .then(function() {
@@ -98,6 +99,7 @@ router.get("/scrape", function(req, res) {
     });
   });
 
+  // delete an article
   router.delete("/remove/saved-articles/:id", function(req, res) {
     var myquery = { _id: req.params.id };
     db.Article.deleteOne(myquery, function(err, obj) {

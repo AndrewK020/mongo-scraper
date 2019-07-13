@@ -64,6 +64,7 @@ $(document).ready(function() {
             data: article
         })
         .then(function(response) {
+            toastr.success('Article saved');
         });
 
     });
@@ -78,6 +79,7 @@ $(document).ready(function() {
         })
         .then(function(response) {
             console.log("deleted!");
+            // toastr.success('Article deleted');
             location.reload();
         });
     });
