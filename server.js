@@ -16,18 +16,21 @@ app.use(logger("dev"));
 // Parse request body as JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// Make public a static folder
-app.use(express.static("public"));
+
+
+var exphbs = require("express-handlebars");
+
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
 
 // Connect to the Mongo DB
 mongoose.connect(MONGODB_URI);
 
 
-app.get("/", function(req, res) {
-   res.send("hello world");
-  });
-  
 
+const routes = require("./routes/controller");
+  
+app.use(routes);
 
 // Start the server
 app.listen(PORT, function() {
