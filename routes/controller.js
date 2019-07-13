@@ -83,13 +83,31 @@ router.get("/scrape", function(req, res) {
     });
   });
   
-  router.get("/api/articles", function(req, res) {
+  router.get("/saved-articles", function(req, res) {
     db.Article.find({}).then(function(dbArticle) {
-        res.json(dbArticle);
+
+      //getting articles from the database will add a saved attribute for front end
+      dbArticle.forEach(function(article) {
+        article.isSaved = true;
+      });
+      res.render("index", {article_data: dbArticle});
     })
     .catch(function(err) {
       // If an error occurred, send it to the client
       res.json(err);
+    });
+  });
+
+  router.delete("/remove/saved-articles/:id", function(req, res) {
+    var myquery = { _id: req.params.id };
+    db.Article.deleteOne(myquery, function(err, obj) {
+      if (err) throw err;
+      res.send(200);
+      console.log("1 article deleted");
+    })
+    .catch(function(err) {
+      console.log(err);
+      res.send(500);
     });
   });
 

@@ -66,7 +66,21 @@ $(document).ready(function() {
         .then(function(response) {
         });
 
-      });
+    });
+
+    $(".delete-article-btn").on("click", function(event) {
+        event.preventDefault();
+
+        const id = $(this).attr("object-id");
+        $.ajax({
+            method: "DELETE",
+            url: "/remove/saved-articles/" + id,
+        })
+        .then(function(response) {
+            console.log("deleted!");
+            location.reload();
+        });
+    });
     
 });
 

@@ -1,6 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <span class="home-span">Free and Open Source Software</span>
     <a class="navbar-brand" href="/">Home</a>
+     <a class="navbar-brand" href="/saved-articles">Saved Articles</a>
 </nav>
 <div class="container">
     <div class="container">
@@ -23,10 +24,14 @@
                             <p class="card-text article-author">{{this.author}}</p>
                             <div class="container" style="padding: 20px;">
                                 <span>Note</span>
-                                <input input type="text"  style="width: 70%;" required="true" class="article-note"><br>
+                                <input input type="text"  style="width: 70%;" required="true" class="article-note" value="{{this.note}}"><br>
                             </div>
                             <a href="{{this.articleLink}}" class="btn btn-primary article-link">Go to article</a>
-                            <button type="submit" class="btn btn-success" style="margin-left: 10%">Save Article</button>
+                            {{#if this.isSaved}}
+                                <button class="btn btn-danger delete-article-btn" style="margin-left: 10%" object-id="{{this._id}}">Delete Article</button>
+                            {{else}}
+                                <button type="submit" class="btn btn-success" style="margin-left: 10%">Save Article</button>
+                            {{/if}}
                             <p class="card-text"><small class="text-muted article-date">{{this.date}}</small></p>
                         </div>
                     </div>
