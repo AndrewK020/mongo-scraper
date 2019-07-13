@@ -66,21 +66,23 @@ router.get("/scrape", function(req, res) {
             
         articles.push(result);
         
-        // db.Article.create(result)
-        // .then(function(dbArticle) {
-        //     console.log(dbArticle);
-        // })
-        // .catch(function(err) {
-        //     console.log(err);
-        // });
-
         });
-        res.json(articles);
+        //res.json(articles);
+        console.log(articles);
+        res.render("index", {article_data: articles});
 
     });
   });
   
-  
+  router.get("/api/articles", function(req, res) {
+    db.Article.find({}).then(function(dbArticle) {
+        res.json(dbArticle);
+    })
+    .catch(function(err) {
+      // If an error occurred, send it to the client
+      res.json(err);
+    });
+  });
 
 
   module.exports = router;

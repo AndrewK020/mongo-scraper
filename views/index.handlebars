@@ -2,3 +2,30 @@
     <span class="home-span">Free and Open Source Software</span>
     <a class="navbar-brand" href="/">Home</a>
 </nav>
+<div class="container">
+    <div class="container">
+        <img class="top-image" src="/images/computer-circuit-board-blue-loopable-background_ek6u0sjfx__F0000.png" alt="circuit">
+        <div class="title-text">Mongo Site Scraper</div>
+        <a type="button" class="btn btn-success" id="get-btn" href="/scrape">Show Top FOSS Articles</a>
+    </div>
+    {{#each article_data}}
+    <div class="container article">
+        <div class="card mb-3" style="max-width: 720px;">
+        <div class="row no-gutters">
+            <div class="col-md-4">
+            <img src="{{this.imageLink}}" class="card-img" alt="...">
+            </div>
+            <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{this.title}}</h5>
+                <p class="card-text">{{this.body}}</p>
+                <p class="card-text">author: {{this.author}}</p>
+                <a href="{{this.articleLink}}" class="btn btn-primary">Go to article</a>
+                <p class="card-text"><small class="text-muted">{{this.date}}</small></p>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
